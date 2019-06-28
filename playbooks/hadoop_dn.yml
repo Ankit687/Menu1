@@ -1,0 +1,51 @@
+- hosts: dn
+  tasks:
+       - copy:
+           src: /root/Desktop/jdk-8u171-linux-x64.rpm 
+           dest: /root/
+       - copy:
+           src: /root/Desktop/hadoop-1.2.1-1.x86_64.rpm
+           dest: /root
+       - debug:
+            msg: "{{ansible_processor_cores}}"
+         register: x
+       - debug:
+             msg: "{{ ansible_memory_mb.real.total }}"
+         register: y
+       - package:
+           name: /root/jdk-8u171-linux-x64.rpm
+           state: present
+         when: x.msg >= 2 and  ansible_memory_mb.real.total >= 1900
+       - lineinfile:
+           path: /root/.bashrc
+           line: "export JAVA_HOME=/usr/java/jdk1.8.0_171-amd64/"
+         when: x.msg >= 2 and  ansible_memory_mb.real.total >= 1900
+       - lineinfile:
+           path: /root/.bashrc
+           line: "export PATH=/usr/java/jdk1.8.0_171-amd64/bin/:$PATH"
+         when: x.msg >= 2 and  ansible_memory_mb.real.total >= 1900
+       - command: "rpm -ivh /root/hadoop-1.2.1-1.x86_64.rpm --force"
+         when: x.msg >= 2 and  ansible_memory_mb.real.total >= 1900
+       - template:
+             src: /var/www/cgi-bin/hdfs-site.xml_data
+             dest: /etc/ansible/hdfs-site.xml
+         when: x.msg >= 2 and  ansible_memory_mb.real.total >= 1900
+
+       - template:
+             src: /var/www/cgi-bin/playbooks/core-site.xml
+             dest: /etc/ansible/core-site.xml
+         when: x.msg >= 2 and  ansible_memory_mb.real.total >= 1900
+
+       - command: "mkdir {{ folder }}"
+         when: x.msg >= 2 and  ansible_memory_mb.real.total >= 1900
+      
+       - command: "iptables -F"
+       
+       - command: "hadoop-daemon.sh start datanode"
+         when: x.msg >= 2 and  ansible_memory_mb.real.total >= 1900
+
+     
+       - command: jps
+         register: z
+       - debug:
+            msg: "{{z}}"

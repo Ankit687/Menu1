@@ -1,0 +1,14 @@
+- hosts: localhost
+  vars_prompt:
+    - name: type1
+      prompt: "Enter format "
+      private: no
+    - name: dev1
+      prompt: "Enter device name "
+      private: no
+
+  tasks:
+    - filesystem:
+        fstype: "{{type1}}"
+        dev: "{{dev1}}"
+        force: yes

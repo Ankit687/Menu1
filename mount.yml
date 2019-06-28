@@ -1,0 +1,27 @@
+- hosts: "{{host}}"
+  vars_prompt:
+        - name: type
+          prompt: "Enter format "
+          private: no
+        - name: device
+          prompt: "Enter device name "
+          private: no
+        - name: point
+          prompt: "Enter path "
+          private: no
+        - name: state
+          prompt: "Enter what  want to do  "
+          private: no
+  
+  tasks:
+    - name: Create directory
+      file:
+        path: "{{point}}"
+        state: directory
+
+    - name: Mount device
+      mount:
+        path:  "{{point}}"
+        src:   "{{device}}"
+        fstype: "{{type}}"
+        state:  "{{state}}"

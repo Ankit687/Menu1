@@ -1,0 +1,21 @@
+- hosts: "{{host}}"
+  vars_prompt:
+        - name: disk
+          prompt: "Enter your device name"
+          private: no
+
+       # - name: integer
+       #   prompt: "Enter no. of partition"
+       #   private: no
+        
+        - name: end
+          prompt: "Enter end part of disk"
+          private: no
+
+  tasks:
+      - parted:
+           device: "{{disk }}"
+           number: 1
+           flags: [ lvm ]
+           state: present
+           part_end: "{{end}}" 

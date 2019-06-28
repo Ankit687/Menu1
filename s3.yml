@@ -1,0 +1,19 @@
+- hosts: localhost
+  vars_files:
+        - creds.yml
+  tasks:
+   - package:
+        name: python2-pip
+        state: present
+   - pip:
+      name:
+        - boto3
+        - botocore 
+   - aws_s3:
+        aws_access_key: "{{ access_key }}"
+        aws_secret_key: "{{ secret_key }}"
+        bucket: "{{ bucket_name }}"
+        src:  ./ssh.txt
+        mode: put        
+        
+
