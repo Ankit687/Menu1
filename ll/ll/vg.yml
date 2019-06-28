@@ -1,0 +1,21 @@
+- hosts: "{{ host }}"
+  vars_prompt:
+        - name: vgname
+          prompt: "Enter vg  name"
+          private: no
+        - name: pvlist
+          prompt: "Enter no. of pv join "
+          private: no
+        - name: size
+          prompt: "Enter extnt size of vg "
+          private: no
+        - name: state
+          prompt: "Enter what do you want  "
+          private: no
+  tasks:
+    - name: Create a volume group 
+      lvg:
+        vg: "{{vgname}}"
+        pvs: "{{pvlist}}"
+        pesize: "{{size}}"
+        state: "{{state}}"

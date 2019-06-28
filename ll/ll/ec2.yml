@@ -1,0 +1,22 @@
+- hosts: localhost
+  vars_files:
+   - creds.yml
+  tasks:
+   - package:
+        name: python2-pip
+        state: present
+   - pip:
+        name:
+         - boto
+         - boto3
+        state: present 
+   - ec2:
+        aws_access_key: "{{ access_key }}"
+        aws_secret_key: "{{ secret_key }}"
+        image: ami-5b673c34
+        instance_type: t2.micro
+        region: ap-south-1
+        termination_protection: yes
+
+
+

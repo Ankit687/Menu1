@@ -1,0 +1,30 @@
+- hosts: localhost
+  vars_files:
+   - creds.yml
+  vars_prompt:
+        - name: email
+          prompt: "Enter to which you want to email = "
+          private: no
+        - name: subject
+          prompt: "Enter subject = "
+          private: no
+        - name: body
+          prompt: "Message = "
+          private: no
+    
+         #   - name: attach
+     #     prompt: "Files you want to attach = "
+     #     private: no
+  tasks:  
+   - mail: 
+      host: smtp.gmail.com
+      port: 587
+
+      username: "{{user_name}}"
+
+      password: "{{ gmail_pass }}"
+      
+      to: "{{email}}"
+      subject: "{{subject}}"
+      body: "{{body}}"
+     delegate_to: localhost

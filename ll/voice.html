@@ -1,0 +1,68 @@
+<html>
+    <body>
+        <script>
+
+
+            function voice_act(){
+                var msg = new SpeechSynthesisUtterance('Hello World');
+                window.speechSynthesis.speak(msg);
+                var msg = new SpeechSynthesisUtterance("Enter your command");
+                window.speechSynthesis.speak(msg);
+            }
+
+        
+            function take_input(){
+                window.SpeechRecognition = window.webkitSpeechRecognition || window.SpeechRecognition;
+                let finalTranscript = '';
+                let recognition = new window.SpeechRecognition();
+                recognition.interimResults = true;
+                recognition.maxAlternatives = 10;
+                recognition.continuous = true;
+                recognition.onresult = (event) => {
+                let interimTranscript = '';
+                for (let i = event.resultIndex, len = event.results.length; i < len; i++) {
+                    let transcript = event.results[i][0].transcript;
+                    if (event.results[i].isFinal) {
+                            finalTranscript += transcript;
+                        } else {
+                            interimTranscript += transcript;
+                        }
+                    }
+                    // document.querySelector('body').innerHTML = finalTranscript + '<i style="color:#ddd;">' + interimTranscript + '</>';
+                    document.getElementById('command').value = finalTranscript + interimTranscript;
+                }
+                recognition.start();
+            }
+
+            function submit_cmd(){
+                document.forms["myform"].submit();
+            }
+        </script>
+        
+        
+        <form name="myform" method=POST action="http://192.168.43.190/cgi-bin/execute.py">
+            <div>
+                <ol>
+                        <li>Hadoop cluster</li>
+                        <li>Launch shell in a box</li>
+                        <li>Service management (start and stop)</li>
+                        <li>Launch firefox</li>
+                        <li>Create partitons on disk</li>
+                        <li>Create a logical volume</li>
+                        <li>Get current location</li>
+                        <li>Launch a hadoop cluster</li> 
+                        <li>Launch an EC2 (elastic container) instance</li>
+                        <li>Launch an S3  (storage) bucket</li>
+                        <li>Disk partition</li>
+                        <li>Logical volume</li>
+                        <li>Send an email</li>
+                        <li>Exit</li>
+                </ol>
+                
+            </div>
+            <input type="text" id="command" name="command"/>
+            <input type="button" onclick="voice_act()" name="Click" value="Click"/>
+            <input type="button" onkeydown="take_input()" onclick="submit_cmd()" value="Press and hold for voice command"/>
+        </form>
+    </body>
+</html>
