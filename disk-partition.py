@@ -13,7 +13,7 @@ a = a[1:]
 
 
 print("""
-<form action=http://192.168.43.207/cgi-bin/partition.py>
+<form action=http://192.168.43.190/cgi-bin/partition.py>
 <table>
 <tr>
 <td>Select device name </td>

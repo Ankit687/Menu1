@@ -27,13 +27,13 @@ def get_directions():
     end = "LinuxWorld Informatics Pvt. Ltd., Plot No. 5, Krishna Tower Next to Triveni Nagar Flyover, Gopal Nagar-A, Agrasen Nagar, Gopal Pura Mode, Gopalpura, Jaipur, Rajasthan 302015".replace(" ", "+")
     url = "https://www.google.com/maps/dir/"+lat+","+lang+"/"+end
     print("""
-        <a href={} target=_blank name=maps>Click to view direction</a>
+        <br><a href={} target=_blank name=maps>Click to view direction</a>
     """.format(url))
     return url
 
 
 def hadoop():
-    print("<a href=http://192.168.43.190/cgi-bin/playbooks/hadoop.py name='email'>Click here for hadoop</a>")
+    print("<br><a href=http://192.168.43.190/cgi-bin/playbooks/hadoop.py name='email'>Click here for hadoop</a>")
 
 def shellinthebox():
     output = sb.getoutput('sudo setenforce 0')
@@ -97,17 +97,17 @@ elif 'direction' in choice:
     url = get_directions()
     
 elif 'send mail' in choice:
-    print("<a href=http://192.168.43.190/email.html name='email'>Click here for mail</a>")
+    print("<br><a href=http://192.168.43.190/email.html name='email'>Click here for mail</a>")
 
 elif 'hadoop cluster' in choice:
-    print("<a href=http://192.168.43.190/hadoop.html name='hadoop'>Click here for hadoop cluster configurations</a>")
+    print("<br><a href=http://192.168.43.190/hadoop.html name='hadoop'>Click here for hadoop cluster configurations</a>")
 
 elif 'shell in a box' in choice:
     shellinthebox()
-    print("<a href=shellinabox.py name=shell>Click here to open the shell</a>")
+    print("<br><a href=shellinabox.py name=shell>Click here to open the shell</a>")
     
-elif 'docker management' in choice:
-    print("<a href=main_docker.py name'docker' Click here to open docker management</a>")
+elif 'docker' in choice:
+    print("<br><a href=main_docker.py name'docker' >Click here to open docker management</a>")
     
 elif 'launch firefox' in choice:
     firefox()
@@ -116,14 +116,14 @@ elif 'elastic container' in choice:
     output = sb.getoutput("sudo ansible-playbook --vault-password-file=secret ./ec2.yml --connection local")
     print(output)
 
-elif 'storage' in choice:
+elif 'storage' in choice and 'bucket' in choice:
     output = sb.getoutput("sudo ansible-playbook --vault-password-file=secret ./s3.yml --extra-vars='bucket_name=4k2' --connection local")
     print(output)
-elif 'disk partition' in choice:
-    print("<a href=http://192.168.43.190/cgi-bin/disk-partition.py name='disk'>Click here for partitioning</a>")
+elif 'disk' in choice and 'partition' in choice: 
+    print("<br><a href=http://192.168.43.190/cgi-bin/disk-partition.py name='disk'>Click here for partitioning</a>")
 
-elif 'lvm create' in choice:
-    print("<a href=http://192.168.43.190/cgi-bin/lvm-partition.py name='lvm'>Click here for creating logical volume</a>")
+elif 'lvm' in choice and 'create' in choice:
+    print("<br><a href=http://192.168.43.190/cgi-bin/lvm-partition.py name='lvm'>Click here for creating logical volume</a>")
 # elif 'docker launch' in choice:
 #     sb.subprocess('./docker.py')
 

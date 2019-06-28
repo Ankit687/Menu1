@@ -14,10 +14,10 @@ body = data.getvalue('message')
 body = "'{}'".format(body)
 subject = "'{}'".format(subject)
 choice = data.getvalue('yesno')
-#if(choice == 'on'):
-send_mail = 'sudo ansible-playbook --vault-password-file=secret  email.yml --extra-vars "email={} subject={} body={}"'.format(email_id,subject,body)
-#else:
-	#send_mail = 'sudo ansible-playbook email1.yml --extra-vars "user_name={} gmail_pass={} email={} subject={} body={}"'.format(username,passwd,email_id,subject,body)
+if(choice == 'on'):
+	send_mail = 'sudo ansible-playbook --vault-password-file=secret  email.yml --extra-vars "email={} subject={} body={}" --connection local'.format(email_id,subject,body)
+else:
+	send_mail = 'sudo ansible-playbook email1.yml --extra-vars "user_name={} gmail_pass={} email={} subject={} body={}" --connection local'.format(username,passwd,email_id,subject,body)
 if(sb.getstatusoutput(send_mail)):
 		print("<h1>Mail is sent")
 else:

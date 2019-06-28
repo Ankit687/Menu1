@@ -14,9 +14,9 @@ fs = data.getvalue("fs")
 path = data.getvalue("path")
 
 def create_partition(device,size,fs,path):
-    create_part = 'sudo ansible-playbook  part.yml --extra-vars "host={} disk={} end={}"'.format("localhost",device,size)
-    formate_part = 'sudo ansible-playbook  mkfs.yml --extra-vars "host={} dev1={}1 type1={}"'.format("localhost",device,fs)
-    mount_part = 'sudo ansible-playbook  mount.yml --extra-vars "host={} state=mounted device={}1 type={} point={}"'.format("localhost",device,fs,path)
+    create_part = 'sudo ansible-playbook  part.yml --extra-vars "host={} disk={} end={}" --connection local'.format("localhost",device,size)
+    formate_part = 'sudo ansible-playbook  mkfs.yml --extra-vars "host={} dev1={}1 type1={}" --connection local'.format("localhost",device,fs)
+    mount_part = 'sudo ansible-playbook  mount.yml --extra-vars "host={} state=mounted device={}1 type={} point={}" --connection local'.format("localhost",device,fs,path)
 
     print(mount_part)
     output = sb.getoutput(create_part)

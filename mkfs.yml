@@ -1,4 +1,4 @@
-- hosts: localhost
+- hosts: "{{ host }}"
   vars_prompt:
     - name: type1
       prompt: "Enter format "
@@ -10,5 +10,6 @@
   tasks:
     - filesystem:
         fstype: "{{type1}}"
-        dev: "{{dev1}}"
+        dev: ext4
+        resizefs: yes
         force: yes

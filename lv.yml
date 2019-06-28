@@ -1,0 +1,28 @@
+- hosts: "{{ host }}"
+  vars_prompt:
+        - name: device
+          prompt: "Enter device "
+          private: no
+        - name: vgname
+          prompt: "Enter name of vg "
+          private: no
+        - name: lvname
+          prompt: "Enter name of lv "
+          private: no
+        - name: size
+          prompt: "Enter size of lv want to create "
+          private: no
+        - name: sta
+          prompt: "Enter what do you want "
+          private: no
+      
+  tasks:
+    - name: Create a logical volume of 512m with disks /dev/sda and /dev/sdb
+      lvol:
+        vg:  "{{vgname}}"
+        lv:  "{{lvname}}"
+        size:  "{{size}}"
+        pvs:   "{{device}}"
+        state: "{{sta}}"
+        force: yes
+       
