@@ -2,7 +2,9 @@
 print("content-type: text/html")
 print()
 string = ""
+
 print("Hello world")
+
 print(""" 
 <html>
     <body>
